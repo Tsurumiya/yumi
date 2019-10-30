@@ -157,7 +157,7 @@ MonoBehaviour:
   accel: {x: 0, y: 0, z: 0}
   jc_ind: 0
   orientation: {x: 0, y: 0, z: 0, w: 0}
-  orientation_origin: {x: 0, y: 0, z: 0, w: 0}
+  orientation_original: {x: 0, y: 0, z: 0, w: 0}
   throwObject: {fileID: 0}
   itemSpawnPoint: {fileID: 0}
 --- !u!136 &423784843
@@ -398,7 +398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503578949}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 2}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 423784846}

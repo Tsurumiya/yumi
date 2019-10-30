@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     public Vector3 accel;
     public int jc_ind = 0;
     public Quaternion orientation;
-    public Quaternion orientation_origin;
+    public Quaternion orientation_original;
 
     //弓矢関連
     public GameObject throwObject;
@@ -78,15 +78,20 @@ public class PlayerController : MonoBehaviour {
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
 
-            orientation = j.GetVector();
-            if (j.GetButton(Joycon.Button.DPAD_UP))
-            {
+            //orientation = j.GetVector();
+            orientation = Quaternion.identity * 
+                Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * 
+                Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * 
+                Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up);
+            if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正（なぜか2回押さなければ効かない）
+            {                
                 gameObject.transform.rotation = Quaternion.identity;
-                orientation_origin = orientation;
+                orientation_original = orientation;
+                j.Recenter();
             }
             else
             {
-                gameObject.transform.rotation = orientation * Quaternion.Inverse(orientation_origin);
+                gameObject.transform.rotation = orientation * Quaternion.Inverse(orientation_original);
             }
         }
     }
