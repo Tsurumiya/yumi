@@ -521,7 +521,6 @@ MonoBehaviour:
   serialController: {fileID: 1878424827}
   shootObject: {fileID: 0}
   itemSpawnPoint: {fileID: 698527966}
-  fadeSpeed: 5
 --- !u!136 &423784843
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -947,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 698527966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_Children: []
   m_Father: {fileID: 423784846}
   m_RootOrder: 0
@@ -1862,6 +1861,10 @@ PrefabInstance:
     - target: {fileID: 128384, guid: a65acf0cbf56b80419f74ebf0bc845f4, type: 3}
       propertyPath: m_Name
       value: SerialController
+      objectReference: {fileID: 0}
+    - target: {fileID: 128384, guid: a65acf0cbf56b80419f74ebf0bc845f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 405068, guid: a65acf0cbf56b80419f74ebf0bc845f4, type: 3}
       propertyPath: m_LocalPosition.x

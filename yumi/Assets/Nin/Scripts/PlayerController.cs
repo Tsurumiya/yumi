@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public int jc_ind = 0;
     public Quaternion orientation;
     public Quaternion orientation_original;
+    private bool initializing = true;
 
     //Arduino
     public SerialController serialController;
@@ -26,24 +27,18 @@ public class PlayerController : MonoBehaviour {
     private GameObject itemSpawnPoint;
     private GameObject cloneObject;
 
-    private Color pointerColor;
-    [SerializeField]
-    private float fadeSpeed;
-    private bool isYPressed = false;
-
     void Start ()
     {
         gyro = new Vector3(0, 0, 0);
         accel = new Vector3(0, 0, 0);
+
         // get the public Joycon array attached to the JoyconManager in scene
         joycons = JoyconManager.Instance.j;
 		if (joycons.Count < jc_ind+1){
 			Destroy(gameObject);
 		}
 
-        serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
-
-        pointerColor = itemSpawnPoint.GetComponent<MeshRenderer>().material.color;
+        //serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
     }
 
     // Update is called once per frame
@@ -101,15 +96,12 @@ public class PlayerController : MonoBehaviour {
             orientation = Quaternion.identity * 
                 Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * 
                 Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * 
-                Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up);
+                Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up); 
 
             if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正（なぜか2回押さなければ効かない）
             {
-                isYPressed = true;
-                gameObject.transform.rotation = Quaternion.identity;
+                //j.Recenter();
                 orientation_original = orientation;
-                j.Recenter();
-                StartCoroutine(FadeOut());
             }
             else
             {
@@ -127,6 +119,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Arduino//
+        /*
         string message = serialController.ReadSerialMessage();
         if (message != null)
         {
@@ -141,18 +134,6 @@ public class PlayerController : MonoBehaviour {
                 shootForce = float.Parse(message);
             }
         }
-    }
-
-    IEnumerator FadeOut()
-    {
-        pointerColor.a = 255;
-        yield return new WaitForSeconds(0.5f);
-        isYPressed = false;
-        while (pointerColor.a > 0)
-        {
-            pointerColor.a -= Time.deltaTime * fadeSpeed;
-            if (isYPressed == true)
-                yield break;
-        }
+        */
     }
 }
