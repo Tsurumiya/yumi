@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
             if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
             {
                 isShooting = true;
-                shootForce = 30f;
+                //shootForce = 30f;
             }
             if (isShooting == true) 
             {
