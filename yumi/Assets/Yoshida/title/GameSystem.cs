@@ -79,7 +79,7 @@ public class GameSystem : MonoBehaviour
             accel = j.GetAccel();
 
             orientation = j.GetVector();
-            if (j.GetButton(Joycon.Button.DPAD_LEFT))
+            if (j.GetButton(Joycon.Button.DPAD_RIGHT))
             {
                 SceneManager.LoadScene("Scene1");   //change the name of scene
             }
