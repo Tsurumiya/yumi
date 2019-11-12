@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 
     //Arduino
     public SerialController serialController;
-    private float shootForce;
+    public float shootForce;
     private bool isShooting = false;
 
     //弓矢関連
@@ -98,9 +98,8 @@ public class PlayerController : MonoBehaviour {
                 Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * 
                 Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up); 
 
-            if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正（なぜか2回押さなければ効かない）
+            if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正
             {
-                //j.Recenter();
                 orientation_original = orientation;
             }
             else
@@ -108,13 +107,24 @@ public class PlayerController : MonoBehaviour {
                 gameObject.transform.rotation = orientation * Quaternion.Inverse(orientation_original);
             }
 
+            if (j.GetButtonDown(Joycon.Button.SHOULDER_2))     //強力角度修正
+            {
+                // Joycon has no magnetometer, so it cannot accurately determine its yaw value. Joycon.Recenter allows the user to reset the yaw value.
+                j.Recenter();
+            }
+
             //発射
+            if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
+            {
+                isShooting = true;
+                shootForce = 30f;
+            }
             if (isShooting == true) 
             {
                 isShooting = false;
-                cloneObject = Instantiate(shootObject, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation);
+                cloneObject = Instantiate(shootObject, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation * Quaternion.AngleAxis(180, Vector3.right) * Quaternion.AngleAxis(Random.Range(-90f, 90f), Vector3.forward));
                 cloneObject.SetActive(true);
-                cloneObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, shootForce);
+                cloneObject.GetComponent<Rigidbody>().velocity = transform.forward * shootForce;
             }
         }
 
