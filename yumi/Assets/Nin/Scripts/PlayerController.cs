@@ -117,7 +117,6 @@ public class PlayerController : MonoBehaviour {
             if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
             {
                 isShooting = true;
-                //shootForce = 30f;
             }
             if (isShooting == true) 
             {
@@ -129,7 +128,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Arduino//
-        /*
+        
         string message = serialController.ReadSerialMessage();
         if (message != null)
         {
@@ -141,9 +140,13 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 Debug.Log("Message arrived: " + message);
-                shootForce = float.Parse(message);
+                if (float.Parse(message) > 20)
+                {
+                    shootForce = float.Parse(message);
+                    isShooting = true;
+                }
             }
         }
-        */
+        
     }
 }
