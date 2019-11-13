@@ -5,10 +5,12 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour
 {
     private Vector3 spawnPosition;
+    private Rigidbody rigidbody;
 
     void Start()
     {
         spawnPosition = transform.position;
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,12 @@ public class ArrowScript : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (rigidbody.velocity != Vector3.zero)
+            rigidbody.rotation = Quaternion.LookRotation(rigidbody.velocity) * Quaternion.AngleAxis(180, Vector3.right);
+    }
+
     void OnTriggerEnter(Collider hit)
     {
         /*
@@ -28,8 +36,9 @@ public class ArrowScript : MonoBehaviour
             //点数加算
         }
         */
-        //gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        //rigidbody.velocity = Vector3.zero;
+        //rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
 
     }
 }
