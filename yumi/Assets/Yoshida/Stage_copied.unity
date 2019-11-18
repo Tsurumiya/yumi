@@ -613,7 +613,7 @@ MonoBehaviour:
   orientation_original: {x: 0, y: 0, z: 0, w: 0}
   serialController: {fileID: 1878424827}
   shootForce: 40
-  shootObject: {fileID: 3473418345389165169, guid: bf5e270f324bd9d41bf6e199746cbd5a,
+  shootObject: {fileID: 3473418345389165169, guid: ee0df521d2576456da80d20113c7ec0d,
     type: 3}
   itemSpawnPoint: {fileID: 423784841}
 --- !u!136 &423784843
