@@ -3,7 +3,12 @@ guid: 1808a5a7f14f5d0468fed3f9186f61b1
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tile_Travertine_2inch
+    second: {fileID: 2100000, guid: d14cf291ac0fb1d41871a16f27733afd, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

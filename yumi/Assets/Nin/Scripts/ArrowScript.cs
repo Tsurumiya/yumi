@@ -10,12 +10,18 @@ public class ArrowScript : MonoBehaviour
 
     private Text scoreText = default;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip missSound;
+    private bool isHit = false;
+
     void Start()
     {
         spawnPosition = transform.position;
         rigidbody = GetComponent<Rigidbody>();
 
         scoreText = GameObject.Find("Score").GetComponent<Text>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,9 +45,15 @@ public class ArrowScript : MonoBehaviour
         {
             //点数加算
             scoreText.text = (int.Parse(scoreText.text)+1).ToString();
+            audioSource.clip = hitSound;
+            audioSource.Play();
+            isHit = true;
         }
-
+        else if (!isHit)
+        {
+            audioSource.clip = missSound;
+            audioSource.Play();
+        }
         rigidbody.isKinematic = true;
-
     }
 }

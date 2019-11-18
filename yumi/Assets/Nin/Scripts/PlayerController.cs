@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -10,8 +11,10 @@ public class PlayerController : MonoBehaviour {
     public float[] stick;
     public Vector3 gyro;
     public Vector3 accel;
+    public float sensitivity = 1f;
     public int jc_ind = 0;
     public Quaternion orientation;
+    public Quaternion orientation_0;
     public Quaternion orientation_original;
     private bool initializing = true;
 
@@ -27,25 +30,48 @@ public class PlayerController : MonoBehaviour {
     private GameObject itemSpawnPoint;
     private GameObject cloneObject;
 
-    void Start ()
+    //UI
+    [SerializeField]
+    private GameObject[] startText = default;
+    private bool isStarted = false;
+
+    private float timer;
+
+    IEnumerator Start ()
     {
         gyro = new Vector3(0, 0, 0);
         accel = new Vector3(0, 0, 0);
 
         // get the public Joycon array attached to the JoyconManager in scene
         joycons = JoyconManager.Instance.j;
-		if (joycons.Count < jc_ind+1){
-			Destroy(gameObject);
-		}
 
-        //serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
+        serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
+
+        timer = 0.0f;
+        startText[0].SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        startText[0].SetActive(false);
+        if (isStarted == false)
+            startText[1].SetActive(true);
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
+
+        timer += Time.deltaTime;
+
+        if (!isStarted) 
+        { 
+            
+            if (timer % 2 > 1f)
+                startText[1].GetComponent<Text>().text = "「Y」を押してスタート";
+            else
+                startText[1].GetComponent<Text>().text = "";
+        }
+        
         //Joycon//
-		// make sure the Joycon only gets checked if attached
-		if (joycons.Count > 0)
+        // make sure the Joycon only gets checked if attached
+        if (joycons.Count > 0)
         {
 			Joycon j = joycons [jc_ind];
 
@@ -93,18 +119,21 @@ public class PlayerController : MonoBehaviour {
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
 
-            orientation = Quaternion.identity * 
-                Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * 
-                Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * 
-                Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up); 
+            orientation = Quaternion.identity * Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up);
 
             if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正
             {
                 orientation_original = orientation;
+                if (!isStarted)
+                {
+                    isStarted = true;
+                    startText[1].SetActive(false);
+                }
             }
             else
             {
-                gameObject.transform.rotation = orientation * Quaternion.Inverse(orientation_original);
+                if (isStarted)
+                    gameObject.transform.rotation = Quaternion.Lerp(Quaternion.identity, orientation * Quaternion.Inverse(orientation_original), Time.time * sensitivity);
             }
 
             if (j.GetButtonDown(Joycon.Button.SHOULDER_2))     //強力角度修正
@@ -114,21 +143,23 @@ public class PlayerController : MonoBehaviour {
             }
 
             //発射
-            if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
+            
+            if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT)) //テスト用
             {
                 isShooting = true;
             }
+            
             if (isShooting == true) 
             {
                 isShooting = false;
-                cloneObject = Instantiate(shootObject, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation * Quaternion.AngleAxis(180, Vector3.right)); // * Quaternion.AngleAxis(Random.Range(-90f, 90f), Vector3.forward)
+                cloneObject = Instantiate(shootObject, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation * Quaternion.AngleAxis(180, Vector3.right));
                 cloneObject.SetActive(true);
                 cloneObject.GetComponent<Rigidbody>().velocity = transform.forward * shootForce;
             }
         }
 
+
         //Arduino//
-        
         string message = serialController.ReadSerialMessage();
         if (message != null)
         {
@@ -149,4 +180,17 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
+
+    IEnumerator StartGame()
+    {
+        //テキスト表示
+        startText[0].SetActive(true);
+        //2秒まつ
+        yield return new WaitForSeconds(2.5f);
+        //テキスト非表示
+        startText[0].SetActive(false);
+        //テキスト表示
+        startText[1].SetActive(true);
+    }
+
 }
