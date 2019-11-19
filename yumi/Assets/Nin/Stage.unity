@@ -906,7 +906,7 @@ MonoBehaviour:
   stick: []
   gyro: {x: 0, y: 0, z: 0}
   accel: {x: 0, y: 0, z: 0}
-  sensitivity: 0.02
+  sensitivity: 0.004
   jc_ind: 0
   orientation: {x: 0, y: 0, z: 0, w: 0}
   orientation_0: {x: 0, y: 0, z: 0, w: 0}

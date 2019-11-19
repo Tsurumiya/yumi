@@ -143,11 +143,12 @@ public class PlayerController : MonoBehaviour {
             }
 
             //発射
-            
+            /*
             if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT)) //テスト用
             {
                 isShooting = true;
             }
+            */
             
             if (isShooting == true) 
             {
@@ -179,18 +180,6 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
-    }
-
-    IEnumerator StartGame()
-    {
-        //テキスト表示
-        startText[0].SetActive(true);
-        //2秒まつ
-        yield return new WaitForSeconds(2.5f);
-        //テキスト非表示
-        startText[0].SetActive(false);
-        //テキスト表示
-        startText[1].SetActive(true);
     }
 
 }

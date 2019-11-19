@@ -15,7 +15,9 @@ public class Titlesystem : MonoBehaviour
 	public int jc_ind = 0;
 	public Quaternion orientation;
 
-	void Start()
+    private AudioSource audioSource;
+
+    void Start()
 	{
 		gyro = new Vector3(0, 0, 0);
 		accel = new Vector3(0, 0, 0);
@@ -25,7 +27,9 @@ public class Titlesystem : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-	}
+
+        audioSource = GetComponent<AudioSource>();
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -57,7 +61,7 @@ public class Titlesystem : MonoBehaviour
 
 			if (j.GetButtonDown(Joycon.Button.DPAD_DOWN))
 			{
-				SceneManager.LoadScene("Scene1");
+                StartCoroutine(StartGame());
 			}
 
 			stick = j.GetStick();
@@ -69,15 +73,16 @@ public class Titlesystem : MonoBehaviour
 			accel = j.GetAccel();
 
 			orientation = j.GetVector();
-			if (j.GetButton(Joycon.Button.DPAD_UP))
-			{
-				gameObject.GetComponent<Renderer>().material.color = Color.red;
-			}
-			else
-			{
-				gameObject.GetComponent<Renderer>().material.color = Color.blue;
-			}
+
 			gameObject.transform.rotation = orientation;
 		}
 	}
+
+    IEnumerator StartGame()
+    {
+        audioSource.Play();
+        //2秒まつ
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("Stage");
+    }
 }
