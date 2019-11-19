@@ -34,10 +34,12 @@ public class Titlesystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+
 		// make sure the Joycon only gets checked if attached
 		if (joycons.Count > 0)
 		{
 			Joycon j = joycons[jc_ind];
+            /*
 			// GetButtonDown checks if a button has been pressed (not held)
 			if (j.GetButtonDown(Joycon.Button.SHOULDER_2))
 			{
@@ -61,11 +63,8 @@ public class Titlesystem : MonoBehaviour
 
 			if (j.GetButtonDown(Joycon.Button.DPAD_DOWN))
 			{
-<<<<<<< HEAD
                 StartCoroutine(StartGame());
-=======
 				SceneManager.LoadScene("Stage");
->>>>>>> 2bff469e469dc35fe4e3d9d4c51b024d2b7026fd
 			}
             if (j.GetButtonDown(Joycon.Button.DPAD_UP))
             {
@@ -97,21 +96,15 @@ public class Titlesystem : MonoBehaviour
 			accel = j.GetAccel();
 
 			orientation = j.GetVector();
-<<<<<<< HEAD
 
-=======
-			if (j.GetButton(Joycon.Button.DPAD_UP))
-			{
-				//gameObject.GetComponent<Renderer>().material.color = Color.red;
-			}
-			else
-			{
-				//gameObject.GetComponent<Renderer>().material.color = Color.blue;
-			}
->>>>>>> 2bff469e469dc35fe4e3d9d4c51b024d2b7026fd
 			gameObject.transform.rotation = orientation;
+            */
 		}
-	}
+
+        if(Input.anyKey)
+            StartCoroutine(StartGame());
+
+    }
 
     IEnumerator StartGame()
     {
