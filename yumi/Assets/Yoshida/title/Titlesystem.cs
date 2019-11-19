@@ -37,30 +37,50 @@ public class Titlesystem : MonoBehaviour
 			// GetButtonDown checks if a button has been pressed (not held)
 			if (j.GetButtonDown(Joycon.Button.SHOULDER_2))
 			{
-				Debug.Log("Shoulder button 2 pressed");
+				//Debug.Log("Shoulder button 2 pressed");
 				// GetStick returns a 2-element vector with x/y joystick components
-				Debug.Log(string.Format("Stick x: {0:N} Stick y: {1:N}", j.GetStick()[0], j.GetStick()[1]));
+				//Debug.Log(string.Format("Stick x: {0:N} Stick y: {1:N}", j.GetStick()[0], j.GetStick()[1]));
 
 				// Joycon has no magnetometer, so it cannot accurately determine its yaw value. Joycon.Recenter allows the user to reset the yaw value.
-				j.Recenter();
+				//j.Recenter();
 			}
 			// GetButtonDown checks if a button has been released
 			if (j.GetButtonUp(Joycon.Button.SHOULDER_2))
 			{
-				Debug.Log("Shoulder button 2 released");
+				//Debug.Log("Shoulder button 2 released");
 			}
 			// GetButtonDown checks if a button is currently down (pressed or held)
 			if (j.GetButton(Joycon.Button.SHOULDER_2))
 			{
-				Debug.Log("Shoulder button 2 held");
+				//Debug.Log("Shoulder button 2 held");
 			}
 
 			if (j.GetButtonDown(Joycon.Button.DPAD_DOWN))
 			{
-				SceneManager.LoadScene("Scene1");
+				SceneManager.LoadScene("Stage");
 			}
+            if (j.GetButtonDown(Joycon.Button.DPAD_UP))
+            {
+                SceneManager.LoadScene("Stage");
+            }
+            if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
+            {
+                SceneManager.LoadScene("Stage");
+            }
+            if (j.GetButtonDown(Joycon.Button.DPAD_LEFT))
+            {
+                SceneManager.LoadScene("Stage");
+            }
+            if (j.GetButtonDown(Joycon.Button.SHOULDER_1))
+            {
+                SceneManager.LoadScene("Stage");
+            }
+            if (j.GetButtonDown(Joycon.Button.SHOULDER_2))
+            {
+                SceneManager.LoadScene("Stage");
+            }
 
-			stick = j.GetStick();
+            stick = j.GetStick();
 
 			// Gyro values: x, y, z axis values (in radians per second)
 			gyro = j.GetGyro();
@@ -71,11 +91,11 @@ public class Titlesystem : MonoBehaviour
 			orientation = j.GetVector();
 			if (j.GetButton(Joycon.Button.DPAD_UP))
 			{
-				gameObject.GetComponent<Renderer>().material.color = Color.red;
+				//gameObject.GetComponent<Renderer>().material.color = Color.red;
 			}
 			else
 			{
-				gameObject.GetComponent<Renderer>().material.color = Color.blue;
+				//gameObject.GetComponent<Renderer>().material.color = Color.blue;
 			}
 			gameObject.transform.rotation = orientation;
 		}
