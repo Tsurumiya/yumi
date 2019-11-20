@@ -119,7 +119,10 @@ public class PlayerController : MonoBehaviour {
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
 
-            orientation = Quaternion.identity * Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up);
+            orientation = Quaternion.identity * 
+                Quaternion.AngleAxis(-j.GetVector().eulerAngles.x, Vector3.right) * 
+                Quaternion.AngleAxis(j.GetVector().eulerAngles.y, Vector3.forward) * 
+                Quaternion.AngleAxis(-j.GetVector().eulerAngles.z, Vector3.up);
 
             if (j.GetButtonUp(Joycon.Button.DPAD_LEFT))     //角度修正
             {
@@ -133,7 +136,10 @@ public class PlayerController : MonoBehaviour {
             else
             {
                 if (isStarted)
-                    gameObject.transform.rotation = Quaternion.Lerp(Quaternion.identity, orientation * Quaternion.Inverse(orientation_original), Time.time * sensitivity);
+                    gameObject.transform.rotation = Quaternion.Slerp(Quaternion.identity, 
+                                                                     orientation * Quaternion.Inverse(orientation_original), 
+                                                                     sensitivity);
+                                                                    
             }
 
             if (j.GetButtonDown(Joycon.Button.SHOULDER_2))     //強力角度修正
