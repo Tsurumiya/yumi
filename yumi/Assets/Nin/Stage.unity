@@ -906,7 +906,7 @@ MonoBehaviour:
   stick: []
   gyro: {x: 0, y: 0, z: 0}
   accel: {x: 0, y: 0, z: 0}
-  sensitivity: 0.1
+  sensitivity: 1
   jc_ind: 0
   orientation: {x: 0, y: 0, z: 0, w: 0}
   orientation_0: {x: 0, y: 0, z: 0, w: 0}
@@ -919,6 +919,7 @@ MonoBehaviour:
   startText:
   - {fileID: 114953123}
   - {fileID: 1278965947}
+  portName: COM3
 --- !u!23 &423784844
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3357,7 +3358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11442534, guid: a65acf0cbf56b80419f74ebf0bc845f4, type: 3}
       propertyPath: portName
-      value: COM9
+      value: COM3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65acf0cbf56b80419f74ebf0bc845f4, type: 3}

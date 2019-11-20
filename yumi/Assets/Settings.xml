@@ -1,0 +1,8 @@
+<settings>
+	<setting category="PORTNAME">
+		<value>COM9</value>
+	</setting>
+	<setting category="SENSITIVITY">
+		<value>0.2</value>
+	</setting>
+</settings>

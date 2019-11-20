@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Xml; //xml読み取り用
 
 public class PlayerController : MonoBehaviour {
 	
@@ -36,6 +37,25 @@ public class PlayerController : MonoBehaviour {
     private bool isStarted = false;
 
     private float timer;
+
+    XmlDocument settingsDoc = null; //xmlファイル
+    public string portName = "COM3";
+
+    void Awake() //SerialControllerのOnEnableより順番が前
+    {
+        settingsDoc = new XmlDocument();
+        settingsDoc.Load(Application.dataPath + "/Settings.xml");  //xml読み取り
+
+        XmlElement root = settingsDoc.DocumentElement;
+
+        for (int i = 0; i < root.ChildNodes.Count; i++)
+        {
+            Debug.Log("XML data: " + root.ChildNodes[i].InnerText);  //文字列読み取り
+        }
+
+        portName = root.ChildNodes[0].InnerText;
+        sensitivity = float.Parse(root.ChildNodes[1].InnerText);
+    }
 
     IEnumerator Start ()
     {

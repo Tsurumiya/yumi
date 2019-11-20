@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Threading;
+using System.Xml; //xml読み取り用
 
 /**
  * This class allows a Unity program to continually check for messages from a
@@ -55,6 +56,8 @@ public class SerialController : MonoBehaviour
     protected Thread thread;
     protected SerialThreadLines serialThread;
 
+    XmlDocument settingsDoc = null; //xmlファイル
+    private bool isXmlread = false;
 
     // ------------------------------------------------------------------------
     // Invoked whenever the SerialController gameobject is activated.
@@ -63,8 +66,13 @@ public class SerialController : MonoBehaviour
     // ------------------------------------------------------------------------
     void OnEnable()
     {
-        serialThread = new SerialThreadLines(portName, 
-                                             baudRate, 
+        if (!isXmlread)
+        {
+            portName = GameObject.Find("Player").GetComponent<PlayerController>().portName;
+            isXmlread = true;
+        }
+        serialThread = new SerialThreadLines(portName,
+                                             baudRate,
                                              reconnectionDelay,
                                              maxUnreadMessages);
         thread = new Thread(new ThreadStart(serialThread.RunForever));
