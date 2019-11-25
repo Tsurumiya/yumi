@@ -1,6 +1,6 @@
 # Kyudo Simulator
 
-Kyudo Simulator made for Media Network Exercises 1
+Kyudo Simulator made for Media Network Exercises I.
 
 <img src="https://user-images.githubusercontent.com/13903318/69547780-83b1aa00-0fd9-11ea-92ca-f38fcef491bf.png" width="800">
 
