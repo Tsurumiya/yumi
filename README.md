@@ -8,8 +8,12 @@ Uses [JoyconLib](https://github.com/Looking-Glass/JoyconLib) and [Ardity](https:
 
 Uses [3D model of Bust of Dr. W.S. Clark](https://github.com/Tsurumiya/Clark_3D).
 
-　
+
  
+紹介スライド: 
+
+https://drive.google.com/file/d/12WwcdR9heX-DIuCn20bja3M1_BsCPIYN/view?usp=sharing
+
 体験動画(Youtube): 
 
 [![体験動画](http://img.youtube.com/vi/2ZlFGo6ooSM/0.jpg)](http://www.youtube.com/watch?v=2ZlFGo6ooSM "Kyudo Simulator")
