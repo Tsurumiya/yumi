@@ -8,7 +8,7 @@ Uses [JoyconLib](https://github.com/Looking-Glass/JoyconLib) and [Ardity](https:
 
 Uses [3D model of Bust of Dr. W.S. Clark](https://github.com/Tsurumiya/Clark_3D).
 
-
+　
  
 紹介スライド: 
 
